@@ -1,3 +1,4 @@
+from sqlalchemy import case
 from sqlalchemy.orm import Session
 from . import models
 
@@ -8,13 +9,34 @@ def get_tasks(
     limit: int = 100,
     completed: bool | None = None,
     priority: str | None = None,
+    sort_by: str = "created_at",
+    sort_order: str = "desc",
 ):
     query = db.query(models.Task)
     if completed is not None:
         query = query.filter(models.Task.completed == completed)
     if priority is not None:
         query = query.filter(models.Task.priority == priority)
-    return query.order_by(models.Task.created_at.desc()).offset(skip).limit(limit).all()
+
+    if sort_by == "priority":
+        order_column = case(
+            (models.Task.priority == "low", 1),
+            (models.Task.priority == "medium", 2),
+            (models.Task.priority == "high", 3),
+        )
+    elif sort_by == "title":
+        order_column = models.Task.title
+    elif sort_by == "due_date":
+        order_column = models.Task.due_date
+    else:
+        order_column = models.Task.created_at
+
+    if sort_order == "asc":
+        order_column = order_column.asc()
+    else:
+        order_column = order_column.desc()
+
+    return query.order_by(order_column).offset(skip).limit(limit).all()
 
 
 def get_task(db: Session, task_id: int):
