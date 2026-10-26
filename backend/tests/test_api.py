@@ -99,6 +99,24 @@ class TestUpdateTask:
         resp = client.patch("/api/tasks/9999", json={"title": "X"})
         assert resp.status_code == 404
 
+    def test_update_invalid_priority(self, client):
+        created = client.post("/api/tasks", json={"title": "Task"}).json()
+        resp = client.patch(f"/api/tasks/{created['id']}", json={"priority": "urgent"})
+        assert resp.status_code == 400
+
+    def test_update_valid_priority(self, client):
+        created = client.post("/api/tasks", json={"title": "Task"}).json()
+        resp = client.patch(f"/api/tasks/{created['id']}", json={"priority": "high"})
+        assert resp.status_code == 200
+        assert resp.json()["priority"] == "high"
+
+    def test_update_without_priority(self, client):
+        created = client.post("/api/tasks", json={"title": "Task", "priority": "low"}).json()
+        resp = client.patch(f"/api/tasks/{created['id']}", json={"title": "X"})
+        assert resp.status_code == 200
+        assert resp.json()["title"] == "X"
+        assert resp.json()["priority"] == "low"
+
 
 class TestDeleteTask:
     def test_delete_task(self, client):
