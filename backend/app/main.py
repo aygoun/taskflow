@@ -23,11 +23,12 @@ app.add_middleware(
 def list_tasks(
     completed: Optional[bool] = None,
     priority: Optional[str] = None,
+    tag: Optional[str] = None,
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500),
     db: Session = Depends(get_db),
 ):
-    return crud.get_tasks(db, skip=skip, limit=limit, completed=completed, priority=priority)
+    return crud.get_tasks(db, skip=skip, limit=limit, completed=completed, priority=priority, tag=tag)
 
 
 @app.post("/api/tasks", response_model=schemas.TaskResponse, status_code=201)
@@ -40,12 +41,18 @@ def create_task(task: schemas.TaskCreate, db: Session = Depends(get_db)):
         description=task.description,
         priority=task.priority,
         due_date=task.due_date,
+        tags=task.tags,
     )
 
 
 @app.get("/api/tasks/search", response_model=list[schemas.TaskResponse])
 def search_tasks(q: str = Query(..., min_length=1), db: Session = Depends(get_db)):
     return crud.search_tasks(db, q)
+
+
+@app.get("/api/tags", response_model=list[schemas.TagResponse])
+def list_tags(db: Session = Depends(get_db)):
+    return crud.get_all_tags(db)
 
 
 @app.get("/api/tasks/{task_id}", response_model=schemas.TaskResponse)
@@ -66,6 +73,7 @@ def update_task(task_id: int, update: schemas.TaskUpdate, db: Session = Depends(
         completed=update.completed,
         priority=update.priority,
         due_date=update.due_date,
+        tags=update.tags,
     )
     if task is None:
         raise HTTPException(status_code=404, detail="Task not found")
