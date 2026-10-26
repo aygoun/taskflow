@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TaskFlow</h1>
+            <p class="subtitle">Simple task management</p>
+        </header>
+
+        <div class="task-form">
+            <input type="text" id="taskTitle" placeholder="What needs to be done?" maxlength="200">
+            <select id="taskPriority">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+            </select>
+            <input type="date" id="taskDueDate">
+            <button id="addBtn" onclick="addTask()">Add Task</button>
+        </div>
+
+        <div class="task-filters">
+            <input type="text" id="searchInput" placeholder="Search tasks..." oninput="debounceSearch()">
+            <select id="filterPriority" onchange="loadTasks()">
+                <option value="">All priorities</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <select id="filterStatus" onchange="loadTasks()">
+                <option value="">All statuses</option>
+                <option value="false">Active</option>
+                <option value="true">Completed</option>
+            </select>
+        </div>
+
+        <div id="taskList" class="task-list">
+            <p class="loading">Loading tasks...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
