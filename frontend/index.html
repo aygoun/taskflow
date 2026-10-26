@@ -21,6 +21,7 @@
                 <option value="high">High</option>
             </select>
             <input type="date" id="taskDueDate">
+            <input type="text" id="taskTags" placeholder="Tags (comma-separated)">
             <button id="addBtn" onclick="addTask()">Add Task</button>
         </div>
 
@@ -36,6 +37,9 @@
                 <option value="">All statuses</option>
                 <option value="false">Active</option>
                 <option value="true">Completed</option>
+            </select>
+            <select id="filterTag" onchange="loadTasks()">
+                <option value="">All tags</option>
             </select>
         </div>
 

@@ -176,6 +176,21 @@ button:hover {
 .badge.priority-low { background: #dcfce7; color: #16a34a; }
 .badge.due { background: #e0e7ff; color: #4338ca; }
 .badge.date { background: #f3f4f6; color: #6b7280; }
+.badge.tag { background: #ede9fe; color: #7c3aed; }
+
+#taskTags {
+    flex: 0 0 180px;
+    min-width: 140px;
+    padding: 12px 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+#taskTags:focus {
+    outline: none;
+    border-color: #4f46e5;
+}
 
 .task-delete {
     background: none;
