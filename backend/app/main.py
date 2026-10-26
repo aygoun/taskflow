@@ -81,6 +81,8 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
 
 @app.patch("/api/tasks/{task_id}", response_model=schemas.TaskResponse)
 def update_task(task_id: int, update: schemas.TaskUpdate, db: Session = Depends(get_db)):
+    if update.priority is not None and update.priority not in ("low", "medium", "high"):
+        raise HTTPException(status_code=400, detail="Priority must be low, medium, or high")
     task = crud.update_task(
         db,
         task_id,
