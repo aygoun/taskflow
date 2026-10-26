@@ -70,6 +70,68 @@ class TestListTasks:
         assert len(resp.json()) == 1
         assert resp.json()[0]["priority"] == "high"
 
+    def test_sort_by_priority_asc(self, client):
+        client.post("/api/tasks", json={"title": "High task", "priority": "high"})
+        client.post("/api/tasks", json={"title": "Low task", "priority": "low"})
+        client.post("/api/tasks", json={"title": "Medium task", "priority": "medium"})
+        resp = client.get("/api/tasks?sort_by=priority&sort_order=asc")
+        assert resp.status_code == 200
+        priorities = [t["priority"] for t in resp.json()]
+        assert priorities == ["low", "medium", "high"]
+
+    def test_sort_by_priority_desc(self, client):
+        client.post("/api/tasks", json={"title": "Low task", "priority": "low"})
+        client.post("/api/tasks", json={"title": "High task", "priority": "high"})
+        client.post("/api/tasks", json={"title": "Medium task", "priority": "medium"})
+        resp = client.get("/api/tasks?sort_by=priority&sort_order=desc")
+        assert resp.status_code == 200
+        priorities = [t["priority"] for t in resp.json()]
+        assert priorities == ["high", "medium", "low"]
+
+    def test_sort_by_created_at_asc(self, client):
+        client.post("/api/tasks", json={"title": "First"})
+        client.post("/api/tasks", json={"title": "Second"})
+        resp = client.get("/api/tasks?sort_by=created_at&sort_order=asc")
+        assert resp.status_code == 200
+        titles = [t["title"] for t in resp.json()]
+        assert titles[0] == "First"
+        assert titles[1] == "Second"
+
+    def test_sort_by_created_at_desc(self, client):
+        client.post("/api/tasks", json={"title": "First"})
+        client.post("/api/tasks", json={"title": "Second"})
+        resp = client.get("/api/tasks?sort_by=created_at&sort_order=desc")
+        assert resp.status_code == 200
+        titles = [t["title"] for t in resp.json()]
+        assert titles[0] == "Second"
+        assert titles[1] == "First"
+
+    def test_sort_by_title(self, client):
+        client.post("/api/tasks", json={"title": "Charlie"})
+        client.post("/api/tasks", json={"title": "Alpha"})
+        client.post("/api/tasks", json={"title": "Bravo"})
+        resp = client.get("/api/tasks?sort_by=title&sort_order=asc")
+        assert resp.status_code == 200
+        titles = [t["title"] for t in resp.json()]
+        assert titles == ["Alpha", "Bravo", "Charlie"]
+
+    def test_invalid_sort_by_returns_400(self, client):
+        resp = client.get("/api/tasks?sort_by=invalid")
+        assert resp.status_code == 400
+
+    def test_invalid_sort_order_returns_400(self, client):
+        resp = client.get("/api/tasks?sort_order=invalid")
+        assert resp.status_code == 400
+
+    def test_default_sort_is_created_at_desc(self, client):
+        client.post("/api/tasks", json={"title": "First"})
+        client.post("/api/tasks", json={"title": "Second"})
+        resp = client.get("/api/tasks")
+        assert resp.status_code == 200
+        titles = [t["title"] for t in resp.json()]
+        assert titles[0] == "Second"
+        assert titles[1] == "First"
+
 
 class TestGetTask:
     def test_get_task(self, client):
