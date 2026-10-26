@@ -37,6 +37,13 @@
                 <option value="false">Active</option>
                 <option value="true">Completed</option>
             </select>
+            <select id="sortSelect" onchange="loadTasks()">
+                <option value="created_at:desc" selected>Newest first</option>
+                <option value="created_at:asc">Oldest first</option>
+                <option value="priority:desc">Priority: High→Low</option>
+                <option value="priority:asc">Priority: Low→High</option>
+                <option value="title:asc">Title A→Z</option>
+            </select>
         </div>
 
         <div id="taskList" class="task-list">
