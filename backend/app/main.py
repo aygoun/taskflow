@@ -18,7 +18,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 VALID_SORT_BY = {"created_at", "title", "priority", "due_date"}
 VALID_SORT_ORDER = {"asc", "desc"}
 

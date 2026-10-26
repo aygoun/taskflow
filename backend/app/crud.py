@@ -19,24 +19,22 @@ def get_tasks(
         query = query.filter(models.Task.priority == priority)
 
     if sort_by == "priority":
-        # high=1, medium=2, low=3 so asc gives high-first
-        # desc means "highest priority first" → use asc on the order column
-        priority_order = case(
-            (models.Task.priority == "high", 1),
+        order_column = case(
+            (models.Task.priority == "low", 1),
             (models.Task.priority == "medium", 2),
-            (models.Task.priority == "low", 3),
-            else_=4,
+            (models.Task.priority == "high", 3),
         )
-        order_column = priority_order.asc() if sort_order == "desc" else priority_order.desc()
     elif sort_by == "title":
-        column = models.Task.title
-        order_column = column.asc() if sort_order == "asc" else column.desc()
+        order_column = models.Task.title
     elif sort_by == "due_date":
-        column = models.Task.due_date
-        order_column = column.asc() if sort_order == "asc" else column.desc()
-    else:  # created_at (default)
-        column = models.Task.created_at
-        order_column = column.asc() if sort_order == "asc" else column.desc()
+        order_column = models.Task.due_date
+    else:
+        order_column = models.Task.created_at
+
+    if sort_order == "asc":
+        order_column = order_column.asc()
+    else:
+        order_column = order_column.desc()
 
     return query.order_by(order_column).offset(skip).limit(limit).all()
 
