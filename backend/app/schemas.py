@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_serializer
 from datetime import datetime
 
 
@@ -7,6 +7,7 @@ class TaskCreate(BaseModel):
     description: str = ""
     priority: str = "medium"
     due_date: str | None = None
+    tags: list[str] = []
 
 
 class TaskUpdate(BaseModel):
@@ -15,6 +16,15 @@ class TaskUpdate(BaseModel):
     completed: bool | None = None
     priority: str | None = None
     due_date: str | None = None
+    tags: list[str] | None = None
+
+
+class TagResponse(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        from_attributes = True
 
 
 class TaskResponse(BaseModel):
@@ -26,6 +36,11 @@ class TaskResponse(BaseModel):
     due_date: str | None
     created_at: datetime
     updated_at: datetime
+    tags: list[TagResponse] = []
+
+    @field_serializer('tags')
+    def serialize_tags(self, tags: list[TagResponse]) -> list[str]:
+        return [t.name for t in tags]
 
     class Config:
         from_attributes = True
