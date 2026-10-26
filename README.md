@@ -30,12 +30,13 @@ taskflow/
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/api/health` | Health check |
-| GET | `/api/tasks` | List tasks (filter: `completed`, `priority`) |
-| POST | `/api/tasks` | Create a task |
+| GET | `/api/tasks` | List tasks (filter: `completed`, `priority`, `tag`) |
+| POST | `/api/tasks` | Create a task (accepts a `tags` array) |
 | GET | `/api/tasks/search?q=` | Search tasks by title/description |
 | GET | `/api/tasks/{id}` | Get a single task |
-| PATCH | `/api/tasks/{id}` | Update a task |
+| PATCH | `/api/tasks/{id}` | Update a task (accepts a `tags` array) |
 | DELETE | `/api/tasks/{id}` | Delete a task |
+| GET | `/api/tags` | List all tags |
 
 ## Running
 
@@ -64,6 +65,7 @@ The frontend is served by the backend at `http://localhost:8000/`.
 - `description` (string) — Optional description
 - `completed` (boolean) — Completion status
 - `priority` (string) — `low`, `medium`, or `high`
+- `tags` (list of strings) — Lowercased, deduplicated tag names (e.g. `urgent`, `backend`)
 - `due_date` (string) — ISO date string
 - `created_at` (datetime) — Auto-set on creation
 - `updated_at` (datetime) — Auto-updated on modification
