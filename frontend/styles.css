@@ -169,6 +169,7 @@ button:hover {
     padding: 2px 8px;
     border-radius: 12px;
     font-weight: 500;
+    text-transform: capitalize;
 }
 
 .badge.priority-high { background: #fee2e2; color: #dc2626; }

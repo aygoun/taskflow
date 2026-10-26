@@ -11,11 +11,42 @@ function debounceSearch() {
     searchTimeout = setTimeout(loadTasks, 300);
 }
 
+const PRIORITY_RANK = { high: 1, medium: 2, low: 3 };
+
+function getSortParams() {
+    const val = document.getElementById("sortSelect").value;
+    const [sortBy, sortOrder] = val.split(":");
+    return { sortBy, sortOrder };
+}
+
+function sortTasksClientSide(tasks, sortBy, sortOrder) {
+    const sorted = [...tasks];
+    if (sortBy === "priority") {
+        sorted.sort((a, b) => {
+            const diff = PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority];
+            return sortOrder === "desc" ? diff : -diff;
+        });
+    } else if (sortBy === "title") {
+        sorted.sort((a, b) => {
+            const cmp = a.title.localeCompare(b.title);
+            return sortOrder === "asc" ? cmp : -cmp;
+        });
+    } else {
+        // created_at
+        sorted.sort((a, b) => {
+            const cmp = new Date(a.created_at) - new Date(b.created_at);
+            return sortOrder === "asc" ? cmp : -cmp;
+        });
+    }
+    return sorted;
+}
+
 async function loadTasks() {
     const listEl = document.getElementById("taskList");
     const search = document.getElementById("searchInput").value.trim();
     const priority = document.getElementById("filterPriority").value;
     const status = document.getElementById("filterStatus").value;
+    const { sortBy, sortOrder } = getSortParams();
 
     listEl.innerHTML = '<p class="loading">Loading...</p>';
 
@@ -24,8 +55,10 @@ async function loadTasks() {
         if (search) {
             const resp = await fetch(`${API_BASE}/tasks/search?q=${encodeURIComponent(search)}`);
             tasks = await resp.json();
+            // Search endpoint doesn't support sort params — sort client-side
+            tasks = sortTasksClientSide(tasks, sortBy, sortOrder);
         } else {
-            let url = `${API_BASE}/tasks?limit=100`;
+            let url = `${API_BASE}/tasks?limit=100&sort_by=${sortBy}&sort_order=${sortOrder}`;
             if (priority) url += `&priority=${priority}`;
             if (status) url += `&completed=${status}`;
             const resp = await fetch(url);
