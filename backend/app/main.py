@@ -19,15 +19,39 @@ app.add_middleware(
 )
 
 
+VALID_SORT_BY = {"created_at", "title", "priority", "due_date"}
+VALID_SORT_ORDER = {"asc", "desc"}
+
+
 @app.get("/api/tasks", response_model=list[schemas.TaskResponse])
 def list_tasks(
     completed: Optional[bool] = None,
     priority: Optional[str] = None,
+    sort_by: str = Query("created_at"),
+    sort_order: str = Query("desc"),
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500),
     db: Session = Depends(get_db),
 ):
-    return crud.get_tasks(db, skip=skip, limit=limit, completed=completed, priority=priority)
+    if sort_by not in VALID_SORT_BY:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid sort_by '{sort_by}'. Must be one of: {sorted(VALID_SORT_BY)}",
+        )
+    if sort_order not in VALID_SORT_ORDER:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid sort_order '{sort_order}'. Must be one of: {sorted(VALID_SORT_ORDER)}",
+        )
+    return crud.get_tasks(
+        db,
+        skip=skip,
+        limit=limit,
+        completed=completed,
+        priority=priority,
+        sort_by=sort_by,
+        sort_order=sort_order,
+    )
 
 
 @app.post("/api/tasks", response_model=schemas.TaskResponse, status_code=201)

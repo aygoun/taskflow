@@ -1,3 +1,4 @@
+from sqlalchemy import case
 from sqlalchemy.orm import Session
 from . import models
 
@@ -8,13 +9,36 @@ def get_tasks(
     limit: int = 100,
     completed: bool | None = None,
     priority: str | None = None,
+    sort_by: str = "created_at",
+    sort_order: str = "desc",
 ):
     query = db.query(models.Task)
     if completed is not None:
         query = query.filter(models.Task.completed == completed)
     if priority is not None:
         query = query.filter(models.Task.priority == priority)
-    return query.order_by(models.Task.created_at.desc()).offset(skip).limit(limit).all()
+
+    if sort_by == "priority":
+        # high=1, medium=2, low=3 so asc gives high-first
+        # desc means "highest priority first" → use asc on the order column
+        priority_order = case(
+            (models.Task.priority == "high", 1),
+            (models.Task.priority == "medium", 2),
+            (models.Task.priority == "low", 3),
+            else_=4,
+        )
+        order_column = priority_order.asc() if sort_order == "desc" else priority_order.desc()
+    elif sort_by == "title":
+        column = models.Task.title
+        order_column = column.asc() if sort_order == "asc" else column.desc()
+    elif sort_by == "due_date":
+        column = models.Task.due_date
+        order_column = column.asc() if sort_order == "asc" else column.desc()
+    else:  # created_at (default)
+        column = models.Task.created_at
+        order_column = column.asc() if sort_order == "asc" else column.desc()
+
+    return query.order_by(order_column).offset(skip).limit(limit).all()
 
 
 def get_task(db: Session, task_id: int):
