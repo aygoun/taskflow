@@ -1,3 +1,18 @@
+:root {
+    --fb-primary: #1877F2;
+    --fb-primary-hover: #166FE5;
+    --fb-primary-light: #E7F3FF;
+    --fb-bg: #F0F2F5;
+    --fb-card-bg: #FFFFFF;
+    --fb-text-primary: #050505;
+    --fb-text-secondary: #65676B;
+    --fb-divider: #CED0D4;
+    --fb-green: #42B72A;
+    --fb-red: #FA383E;
+    --fb-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    --fb-shadow-hover: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,9 +20,9 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f5f5f5;
-    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--fb-bg);
+    color: var(--fb-text-primary);
     min-height: 100vh;
 }
 
@@ -24,11 +39,11 @@ header {
 
 header h1 {
     font-size: 2rem;
-    color: #1a1a2e;
+    color: var(--fb-text-primary);
 }
 
 .subtitle {
-    color: #666;
+    color: var(--fb-text-secondary);
     margin-top: 4px;
 }
 
@@ -43,28 +58,28 @@ header h1 {
     flex: 1;
     min-width: 200px;
     padding: 12px 16px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--fb-divider);
     border-radius: 8px;
     font-size: 1rem;
 }
 
 .task-form input[type="text"]:focus {
     outline: none;
-    border-color: #4f46e5;
+    border-color: var(--fb-primary);
 }
 
 .task-form select,
 .task-form input[type="date"] {
     padding: 12px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--fb-divider);
     border-radius: 8px;
     font-size: 0.9rem;
-    background: white;
+    background: var(--fb-card-bg);
 }
 
 button {
     padding: 12px 24px;
-    background: #4f46e5;
+    background: var(--fb-primary);
     color: white;
     border: none;
     border-radius: 8px;
@@ -74,7 +89,7 @@ button {
 }
 
 button:hover {
-    background: #4338ca;
+    background: var(--fb-primary-hover);
 }
 
 .task-filters {
@@ -86,7 +101,7 @@ button:hover {
 .task-filters input,
 .task-filters select {
     padding: 10px 14px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--fb-divider);
     border-radius: 8px;
     font-size: 0.9rem;
 }
@@ -105,16 +120,16 @@ button:hover {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: white;
+    background: var(--fb-card-bg);
     padding: 16px;
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    border-left: 4px solid #ddd;
+    box-shadow: var(--fb-shadow);
+    border-left: 4px solid var(--fb-divider);
 }
 
-.task-card.priority-high { border-left-color: #ef4444; }
-.task-card.priority-medium { border-left-color: #f59e0b; }
-.task-card.priority-low { border-left-color: #22c55e; }
+.task-card.priority-high { border-left-color: var(--fb-red); }
+.task-card.priority-medium { border-left-color: #F7B928; }
+.task-card.priority-low { border-left-color: var(--fb-green); }
 
 .task-card.completed {
     opacity: 0.6;
@@ -127,7 +142,7 @@ button:hover {
 .task-checkbox {
     width: 24px;
     height: 24px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--fb-divider);
     border-radius: 6px;
     cursor: pointer;
     display: flex;
@@ -135,11 +150,11 @@ button:hover {
     justify-content: center;
     flex-shrink: 0;
     font-size: 0.85rem;
-    color: #22c55e;
+    color: var(--fb-green);
 }
 
 .task-checkbox:hover {
-    border-color: #22c55e;
+    border-color: var(--fb-green);
 }
 
 .task-content {
@@ -153,7 +168,7 @@ button:hover {
 }
 
 .task-desc {
-    color: #666;
+    color: var(--fb-text-secondary);
     font-size: 0.9rem;
     margin-bottom: 8px;
 }
@@ -171,31 +186,31 @@ button:hover {
     font-weight: 500;
 }
 
-.badge.priority-high { background: #fee2e2; color: #dc2626; }
-.badge.priority-medium { background: #fef3c7; color: #d97706; }
-.badge.priority-low { background: #dcfce7; color: #16a34a; }
-.badge.due { background: #e0e7ff; color: #4338ca; }
-.badge.date { background: #f3f4f6; color: #6b7280; }
+.badge.priority-high { background: var(--fb-primary-light); color: var(--fb-red); }
+.badge.priority-medium { background: var(--fb-primary-light); color: #F7B928; }
+.badge.priority-low { background: var(--fb-primary-light); color: var(--fb-green); }
+.badge.due { background: var(--fb-primary-light); color: var(--fb-primary); }
+.badge.date { background: var(--fb-bg); color: var(--fb-text-secondary); }
 
 .task-delete {
     background: none;
-    color: #999;
+    color: var(--fb-text-secondary);
     font-size: 1.25rem;
     padding: 4px 8px;
     border-radius: 4px;
 }
 
 .task-delete:hover {
-    background: #fee2e2;
-    color: #dc2626;
+    background: var(--fb-primary-light);
+    color: var(--fb-red);
 }
 
 .loading, .empty, .error {
     text-align: center;
     padding: 40px;
-    color: #666;
+    color: var(--fb-text-secondary);
 }
 
 .error {
-    color: #dc2626;
+    color: var(--fb-red);
 }
