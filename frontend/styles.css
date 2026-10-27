@@ -1,16 +1,16 @@
 :root {
-    --fb-primary: #1877F2;
-    --fb-primary-hover: #166FE5;
-    --fb-primary-light: #E7F3FF;
-    --fb-bg: #F0F2F5;
-    --fb-card-bg: #FFFFFF;
-    --fb-text-primary: #050505;
-    --fb-text-secondary: #65676B;
-    --fb-divider: #CED0D4;
-    --fb-green: #42B72A;
-    --fb-red: #FA383E;
-    --fb-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    --fb-shadow-hover: 0 4px 12px rgba(0,0,0,0.1);
+    --mistral-primary: #FA500F;
+    --mistral-primary-hover: #E10500;
+    --mistral-primary-light: #FFF0EB;
+    --mistral-bg: #FFF8F5;
+    --mistral-card-bg: #FFFFFF;
+    --mistral-text-primary: #1A1A1A;
+    --mistral-text-secondary: #6B6B6B;
+    --mistral-divider: #E5E0DC;
+    --mistral-green: #16A34A;
+    --mistral-red: #DC2626;
+    --mistral-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    --mistral-shadow-hover: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 * {
@@ -24,13 +24,13 @@ html {
 }
 
 ::selection {
-    background: var(--fb-primary-light);
+    background: var(--mistral-primary-light);
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-    background: var(--fb-bg);
-    color: var(--fb-text-primary);
+    background: var(--mistral-bg);
+    color: var(--mistral-text-primary);
     min-height: 100vh;
 }
 
@@ -42,22 +42,22 @@ body {
 
 /* ── Card ────────────────────────────────────────────── */
 .card {
-    background: var(--fb-card-bg);
+    background: var(--mistral-card-bg);
     border-radius: 12px;
-    box-shadow: var(--fb-shadow);
+    box-shadow: var(--mistral-shadow);
     padding: 20px;
     margin-bottom: 20px;
 }
 
 /* ── Navbar ──────────────────────────────────────────── */
 .navbar {
-    background: var(--fb-primary);
+    background: var(--mistral-primary);
     color: #fff;
     padding: 12px 24px;
     display: flex;
     align-items: center;
     gap: 12px;
-    box-shadow: var(--fb-shadow);
+    box-shadow: var(--mistral-shadow);
 }
 
 .navbar-brand {
@@ -103,7 +103,7 @@ body {
     flex: 1;
     min-width: 200px;
     padding: 12px 16px;
-    border: 1px solid var(--fb-divider);
+    border: 1px solid var(--mistral-divider);
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.15s, box-shadow 0.15s;
@@ -111,31 +111,31 @@ body {
 
 .task-form input[type="text"]:focus {
     outline: none;
-    border-color: var(--fb-primary);
-    box-shadow: 0 0 0 2px var(--fb-primary-light);
+    border-color: var(--mistral-primary);
+    box-shadow: 0 0 0 2px var(--mistral-primary-light);
 }
 
 .task-form select,
 .task-form input[type="date"] {
     padding: 12px;
-    border: 1px solid var(--fb-divider);
+    border: 1px solid var(--mistral-divider);
     border-radius: 8px;
     font-size: 0.9rem;
-    background: var(--fb-card-bg);
+    background: var(--mistral-card-bg);
     transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .task-form select:focus,
 .task-form input[type="date"]:focus {
     outline: none;
-    border-color: var(--fb-primary);
-    box-shadow: 0 0 0 2px var(--fb-primary-light);
+    border-color: var(--mistral-primary);
+    box-shadow: 0 0 0 2px var(--mistral-primary-light);
 }
 
 /* ── Buttons ─────────────────────────────────────────── */
 button {
     padding: 12px 24px;
-    background: var(--fb-primary);
+    background: var(--mistral-primary);
     color: white;
     border: none;
     border-radius: 8px;
@@ -146,7 +146,7 @@ button {
 }
 
 button:hover {
-    background: var(--fb-primary-hover);
+    background: var(--mistral-primary-hover);
 }
 
 /* ── Task Filters ────────────────────────────────────── */
@@ -159,18 +159,18 @@ button:hover {
 .task-filters input,
 .task-filters select {
     padding: 10px 14px;
-    border: 1px solid var(--fb-divider);
+    border: 1px solid var(--mistral-divider);
     border-radius: 8px;
     font-size: 0.9rem;
-    background: var(--fb-card-bg);
+    background: var(--mistral-card-bg);
     transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .task-filters input:focus,
 .task-filters select:focus {
     outline: none;
-    border-color: var(--fb-primary);
-    box-shadow: 0 0 0 2px var(--fb-primary-light);
+    border-color: var(--mistral-primary);
+    box-shadow: 0 0 0 2px var(--mistral-primary-light);
 }
 
 .task-filters input {
@@ -192,17 +192,17 @@ button:hover {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: var(--fb-card-bg);
+    background: var(--mistral-card-bg);
     padding: 16px 20px;
     border-radius: 12px;
-    box-shadow: var(--fb-shadow);
-    border: 1px solid var(--fb-divider);
+    box-shadow: var(--mistral-shadow);
+    border: 1px solid var(--mistral-divider);
     transition: box-shadow 0.2s;
     animation: fadeIn 0.2s ease-out;
 }
 
 .task-card:hover {
-    box-shadow: var(--fb-shadow-hover);
+    box-shadow: var(--mistral-shadow-hover);
 }
 
 .task-card.completed {
@@ -211,13 +211,13 @@ button:hover {
 
 .task-card.completed .task-title {
     text-decoration: line-through;
-    color: var(--fb-text-secondary);
+    color: var(--mistral-text-secondary);
 }
 
 .task-checkbox {
     width: 24px;
     height: 24px;
-    border: 2px solid var(--fb-divider);
+    border: 2px solid var(--mistral-divider);
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -230,12 +230,12 @@ button:hover {
 }
 
 .task-checkbox:hover {
-    border-color: var(--fb-green);
+    border-color: var(--mistral-green);
 }
 
 .task-card.completed .task-checkbox {
-    background: var(--fb-green);
-    border-color: var(--fb-green);
+    background: var(--mistral-green);
+    border-color: var(--mistral-green);
     color: white;
 }
 
@@ -244,14 +244,14 @@ button:hover {
 }
 
 .task-title {
-    color: var(--fb-text-primary);
+    color: var(--mistral-text-primary);
     font-weight: 600;
     font-size: 1rem;
     margin-bottom: 4px;
 }
 
 .task-desc {
-    color: var(--fb-text-secondary);
+    color: var(--mistral-text-secondary);
     font-size: 0.9rem;
     margin-bottom: 8px;
 }
@@ -269,15 +269,15 @@ button:hover {
     font-weight: 600;
 }
 
-.badge.priority-high { background: #FFEBEE; color: var(--fb-red); }
+.badge.priority-high { background: #FFEBEE; color: var(--mistral-red); }
 .badge.priority-medium { background: #FFF8E1; color: #B8860B; }
-.badge.priority-low { background: #E8F5E9; color: var(--fb-green); }
-.badge.due { background: var(--fb-primary-light); color: var(--fb-primary); }
-.badge.date { background: #F0F2F5; color: var(--fb-text-secondary); }
+.badge.priority-low { background: #E8F5E9; color: var(--mistral-green); }
+.badge.due { background: var(--mistral-primary-light); color: var(--mistral-primary); }
+.badge.date { background: var(--mistral-bg); color: var(--mistral-text-secondary); }
 
 .task-delete {
     background: none;
-    color: var(--fb-text-secondary);
+    color: var(--mistral-text-secondary);
     font-size: 1.25rem;
     width: 32px;
     height: 32px;
@@ -293,7 +293,7 @@ button:hover {
 
 .task-delete:hover {
     background: #FFEBEE;
-    color: var(--fb-red);
+    color: var(--mistral-red);
 }
 
 .loading {
@@ -302,15 +302,15 @@ button:hover {
     justify-content: center;
     gap: 12px;
     padding: 48px;
-    color: var(--fb-text-secondary);
+    color: var(--mistral-text-secondary);
 }
 
 .loading::before {
     content: '';
     width: 24px;
     height: 24px;
-    border: 3px solid var(--fb-divider);
-    border-top-color: var(--fb-primary);
+    border: 3px solid var(--mistral-divider);
+    border-top-color: var(--mistral-primary);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -322,7 +322,7 @@ button:hover {
 .empty {
     text-align: center;
     padding: 48px;
-    color: var(--fb-text-secondary);
+    color: var(--mistral-text-secondary);
 }
 
 .empty::before {
@@ -336,7 +336,7 @@ button:hover {
     background: #FFEBEE;
     border-radius: 12px;
     padding: 24px;
-    color: var(--fb-red);
+    color: var(--mistral-red);
     font-weight: 500;
 }
 
@@ -344,7 +344,7 @@ button:hover {
 .app-footer {
     text-align: center;
     padding: 24px;
-    color: var(--fb-text-secondary);
+    color: var(--mistral-text-secondary);
     font-size: 0.85rem;
 }
 
