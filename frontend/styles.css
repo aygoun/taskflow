@@ -180,40 +180,49 @@ button:hover {
     align-items: flex-start;
     gap: 12px;
     background: var(--fb-card-bg);
-    padding: 16px;
+    padding: 16px 20px;
     border-radius: 12px;
     box-shadow: var(--fb-shadow);
-    border-left: 4px solid var(--fb-divider);
+    border: 1px solid var(--fb-divider);
+    transition: box-shadow 0.2s;
 }
 
-.task-card.priority-high { border-left-color: var(--fb-red); }
-.task-card.priority-medium { border-left-color: #F7B928; }
-.task-card.priority-low { border-left-color: var(--fb-green); }
+.task-card:hover {
+    box-shadow: var(--fb-shadow-hover);
+}
 
 .task-card.completed {
-    opacity: 0.6;
+    opacity: 0.55;
 }
 
 .task-card.completed .task-title {
     text-decoration: line-through;
+    color: var(--fb-text-secondary);
 }
 
 .task-checkbox {
     width: 24px;
     height: 24px;
     border: 2px solid var(--fb-divider);
-    border-radius: 6px;
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     font-size: 0.85rem;
-    color: var(--fb-green);
+    color: transparent;
+    transition: all 0.15s;
 }
 
 .task-checkbox:hover {
     border-color: var(--fb-green);
+}
+
+.task-card.completed .task-checkbox {
+    background: var(--fb-green);
+    border-color: var(--fb-green);
+    color: white;
 }
 
 .task-content {
@@ -221,6 +230,7 @@ button:hover {
 }
 
 .task-title {
+    color: var(--fb-text-primary);
     font-weight: 600;
     font-size: 1rem;
     margin-bottom: 4px;
@@ -240,27 +250,35 @@ button:hover {
 
 .badge {
     font-size: 0.75rem;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-weight: 600;
 }
 
-.badge.priority-high { background: var(--fb-primary-light); color: var(--fb-red); }
-.badge.priority-medium { background: var(--fb-primary-light); color: #F7B928; }
-.badge.priority-low { background: var(--fb-primary-light); color: var(--fb-green); }
+.badge.priority-high { background: #FFEBEE; color: var(--fb-red); }
+.badge.priority-medium { background: #FFF8E1; color: #B8860B; }
+.badge.priority-low { background: #E8F5E9; color: var(--fb-green); }
 .badge.due { background: var(--fb-primary-light); color: var(--fb-primary); }
-.badge.date { background: var(--fb-bg); color: var(--fb-text-secondary); }
+.badge.date { background: #F0F2F5; color: var(--fb-text-secondary); }
 
 .task-delete {
     background: none;
     color: var(--fb-text-secondary);
     font-size: 1.25rem;
-    padding: 4px 8px;
-    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s, color 0.15s;
 }
 
 .task-delete:hover {
-    background: var(--fb-primary-light);
+    background: #FFEBEE;
     color: var(--fb-red);
 }
 
