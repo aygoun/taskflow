@@ -3,46 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1877F2">
     <title>TaskFlow</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231877F2'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial, sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%9C%93%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>TaskFlow</h1>
-            <p class="subtitle">Simple task management</p>
-        </header>
-
-        <div class="task-form">
-            <input type="text" id="taskTitle" placeholder="What needs to be done?" maxlength="200">
-            <select id="taskPriority">
-                <option value="low">Low</option>
-                <option value="medium" selected>Medium</option>
-                <option value="high">High</option>
-            </select>
-            <input type="date" id="taskDueDate">
-            <button id="addBtn" onclick="addTask()">Add Task</button>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span class="navbar-logo">&#10003;</span>
+            <span class="navbar-title">TaskFlow</span>
         </div>
+        <span class="navbar-tagline">Simple task management</span>
+    </nav>
 
-        <div class="task-filters">
-            <input type="text" id="searchInput" placeholder="Search tasks..." oninput="debounceSearch()">
-            <select id="filterPriority" onchange="loadTasks()">
-                <option value="">All priorities</option>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-            <select id="filterStatus" onchange="loadTasks()">
-                <option value="">All statuses</option>
-                <option value="false">Active</option>
-                <option value="true">Completed</option>
-            </select>
-        </div>
+    <main>
+        <div class="container">
+            <section class="card">
+                <div class="task-form">
+                    <input type="text" id="taskTitle" placeholder="What needs to be done?" maxlength="200">
+                    <select id="taskPriority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <input type="date" id="taskDueDate">
+                    <button id="addBtn" onclick="addTask()">Add Task</button>
+                </div>
 
-        <div id="taskList" class="task-list">
-            <p class="loading">Loading tasks...</p>
+                <div class="task-filters">
+                    <input type="text" id="searchInput" placeholder="Search tasks..." oninput="debounceSearch()">
+                    <select id="filterPriority" onchange="loadTasks()">
+                        <option value="">All priorities</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <select id="filterStatus" onchange="loadTasks()">
+                        <option value="">All statuses</option>
+                        <option value="false">Active</option>
+                        <option value="true">Completed</option>
+                    </select>
+                </div>
+            </section>
+
+            <div id="taskList" class="task-list">
+                <p class="loading">Loading tasks...</p>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="app-footer">
+        TaskFlow &mdash; Simple task management
+    </footer>
 
     <script src="app.js"></script>
 </body>
